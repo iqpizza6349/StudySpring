@@ -1,13 +1,14 @@
 package com.tistory.workshop.studyspring.service;
 
 import com.tistory.workshop.studyspring.domain.entity.RefreshToken;
+import com.tistory.workshop.studyspring.domain.entity.RefreshTokenId;
 import com.tistory.workshop.studyspring.domain.entity.User;
 import com.tistory.workshop.studyspring.domain.repository.RefreshTokenRepository;
 import com.tistory.workshop.studyspring.domain.repository.UserRepository;
 import com.tistory.workshop.studyspring.dto.sign.UserRequestDto;
 import com.tistory.workshop.studyspring.dto.user.UserResponseDto;
-import com.tistory.workshop.studyspring.jwt.TokenDto;
-import com.tistory.workshop.studyspring.jwt.TokenProvider;
+import com.tistory.workshop.studyspring.dto.token.TokenDto;
+import com.tistory.workshop.studyspring.service.token.TokenProvider;
 import com.tistory.workshop.studyspring.service.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,12 +48,11 @@ public class UserService {
     @Transactional
     public TokenDto login(UserRequestDto userRequestDto) {
         User user = userRepository.findByEmail(userRequestDto.getEmail())
-                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.CONFLICT, "password incorrect"));
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.CONFLICT, "user not found"));
         String password = userRequestDto.getPassword();
-        String salt = securityService.getSalt();
-        String hashedPassword = securityService.encrypt((password) + salt);
+        String salt = user.getSalt();
 
-        if (!securityService.validPassword(password, salt, hashedPassword)) {
+        if (!securityService.validPassword(password, salt, user.getPassword())) {
             String msg = "password is incorrect";
             throw new HttpClientErrorException(HttpStatus.CONFLICT, msg);
         }
@@ -60,7 +60,7 @@ public class UserService {
         TokenDto tokenDto = tokenProvider.createToken(user.getId());
 
         RefreshToken refreshToken = RefreshToken.builder()
-                .user(user)
+                .refreshTokenId(new RefreshTokenId(user))
                 .token(tokenDto.getRefreshToken())
                 .build();
         refreshTokenRepository.save(refreshToken);

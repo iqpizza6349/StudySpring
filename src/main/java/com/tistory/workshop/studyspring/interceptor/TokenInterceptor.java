@@ -1,6 +1,6 @@
 package com.tistory.workshop.studyspring.interceptor;
 
-import com.tistory.workshop.studyspring.jwt.TokenProvider;
+import com.tistory.workshop.studyspring.service.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

@@ -1,5 +1,6 @@
-package com.tistory.workshop.studyspring.jwt;
+package com.tistory.workshop.studyspring.service.token;
 
+import com.tistory.workshop.studyspring.dto.token.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.Base64UrlCodec;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,8 @@ public class TokenProvider {
         String accessToken = Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setClaims(claims)
-                .setIssuedAt(new Date(now.getTime() + accessTokenValidMilliSecond))
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + accessTokenValidMilliSecond))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
 
@@ -45,6 +47,7 @@ public class TokenProvider {
         String refreshToken = Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setClaims(claims)
+                .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + refreshTokenValidMilliSecond))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();

@@ -1,4 +1,4 @@
-package com.tistory.workshop.studyspring.jwt;
+package com.tistory.workshop.studyspring.dto.token;
 
 import lombok.*;
 

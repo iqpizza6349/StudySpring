@@ -45,7 +45,7 @@ public class SecurityService {
     }
 
     public boolean validPassword(String password, String salt, String hashedPassword) {
-        return (encrypt(password + salt)).equals(hashedPassword);
+        return encrypt(password + salt).equals(hashedPassword);
     }
 
 }

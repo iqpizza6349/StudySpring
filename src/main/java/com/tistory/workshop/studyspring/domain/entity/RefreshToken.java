@@ -13,13 +13,15 @@ import javax.persistence.*;
 @Entity
 public class RefreshToken {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private RefreshTokenId refreshTokenId;
 
     @Column(nullable = false)
     private String token;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    public RefreshToken updateToken(String token) {
+        this.token = token;
+        return this;
+    }
+
 }

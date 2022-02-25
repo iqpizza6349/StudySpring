@@ -3,7 +3,9 @@ package com.tistory.workshop.studyspring.controller;
 import com.tistory.workshop.studyspring.dto.response.CommonResult;
 import com.tistory.workshop.studyspring.dto.response.SingleResult;
 import com.tistory.workshop.studyspring.dto.sign.UserRequestDto;
-import com.tistory.workshop.studyspring.jwt.TokenDto;
+import com.tistory.workshop.studyspring.dto.token.TokenDto;
+import com.tistory.workshop.studyspring.dto.token.TokenRequestDto;
+import com.tistory.workshop.studyspring.service.TokenService;
 import com.tistory.workshop.studyspring.service.UserService;
 import com.tistory.workshop.studyspring.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class SignController {
 
     private final ResponseService responseService;
     private final UserService userService;
+    private final TokenService tokenService;
 
     @PostMapping("/sign-up")
     public CommonResult signUp(@RequestBody UserRequestDto userRequestDto) {
@@ -29,6 +32,11 @@ public class SignController {
     @PostMapping("/login")
     public SingleResult<TokenDto> login(@RequestBody UserRequestDto userRequestDto) {
         return responseService.getSingleResult(userService.login(userRequestDto));
+    }
+
+    @PostMapping(value = "/reissue")
+    public SingleResult<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+        return responseService.getSingleResult(tokenService.reIssue(tokenRequestDto));
     }
 
 }
