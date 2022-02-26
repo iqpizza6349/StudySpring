@@ -24,11 +24,17 @@ public class UserService {
     private final SecurityService securityService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final MailService mailService;
 
     @Transactional
     public void register(UserRequestDto userRequestDto) {
         String email = userRequestDto.getEmail();
         String password = userRequestDto.getPassword();
+
+        if (!mailService.isValidEmailAddress(email)) {
+            String msg = email + " is not valid email!";
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, msg);
+        }
 
         if (userRepository.existsByEmail(email)) {
             String msg = "user " + email + " is already exists";
@@ -72,6 +78,11 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new HttpClientErrorException(HttpStatus.CONFLICT));
         return new UserResponseDto(user);
+    }
+
+    public void sendChangePasswordEmail(String token) {
+        UserResponseDto userResponseDto = findByToken(token);
+        mailService.sendMail(userResponseDto.getEmail());
     }
 
 }

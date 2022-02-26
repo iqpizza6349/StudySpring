@@ -1,4 +1,4 @@
-package com.tistory.workshop.studyspring.service;
+package com.tistory.workshop.studyspring.service.token;
 
 import com.tistory.workshop.studyspring.domain.entity.RefreshToken;
 import com.tistory.workshop.studyspring.domain.entity.User;

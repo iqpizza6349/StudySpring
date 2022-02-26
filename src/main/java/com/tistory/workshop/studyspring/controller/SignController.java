@@ -5,7 +5,7 @@ import com.tistory.workshop.studyspring.dto.response.SingleResult;
 import com.tistory.workshop.studyspring.dto.sign.UserRequestDto;
 import com.tistory.workshop.studyspring.dto.token.TokenDto;
 import com.tistory.workshop.studyspring.dto.token.TokenRequestDto;
-import com.tistory.workshop.studyspring.service.TokenService;
+import com.tistory.workshop.studyspring.service.token.TokenService;
 import com.tistory.workshop.studyspring.service.UserService;
 import com.tistory.workshop.studyspring.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;

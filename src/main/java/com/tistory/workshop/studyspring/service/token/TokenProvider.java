@@ -18,7 +18,7 @@ import java.util.Date;
 @Component
 public class TokenProvider {
 
-    @Value("${spring.jpa.jwt.secret-key}")
+    @Value("${spring.jwt.secret-key}")
     private String SECRET_KEY;
     
     @PostConstruct
