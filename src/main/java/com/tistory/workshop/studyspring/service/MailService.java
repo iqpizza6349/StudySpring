@@ -55,5 +55,4 @@ public class MailService {
         return result;
     }
 
-
 }
