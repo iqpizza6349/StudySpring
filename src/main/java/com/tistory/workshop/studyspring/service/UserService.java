@@ -82,7 +82,18 @@ public class UserService {
 
     public void sendChangePasswordEmail(String token) {
         UserResponseDto userResponseDto = findByToken(token);
-        mailService.sendMail(userResponseDto.getEmail());
+        mailService.sendMail(userResponseDto.getId(), userResponseDto.getEmail());
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.CONFLICT));
+    }
+
+    public UserResponseDto findById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.CONFLICT));
+        return new UserResponseDto(user);
     }
 
 }

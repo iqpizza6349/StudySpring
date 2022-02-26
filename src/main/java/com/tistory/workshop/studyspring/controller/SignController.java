@@ -9,10 +9,7 @@ import com.tistory.workshop.studyspring.service.token.TokenService;
 import com.tistory.workshop.studyspring.service.UserService;
 import com.tistory.workshop.studyspring.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/sign")
@@ -34,7 +31,7 @@ public class SignController {
         return responseService.getSingleResult(userService.login(userRequestDto));
     }
 
-    @PostMapping(value = "/reissue")
+    @PostMapping("/reissue")
     public SingleResult<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return responseService.getSingleResult(tokenService.reIssue(tokenRequestDto));
     }

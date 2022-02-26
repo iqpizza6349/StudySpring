@@ -25,5 +25,13 @@ public class User {
 
     @Column(nullable = false, length = 8)
     private String salt;
+    
+    public boolean setPassword(String password) {
+        if (this.password.equals(password)) {
+            return false;
+        }
+        this.password = password;
+        return true;
+    }
 
 }

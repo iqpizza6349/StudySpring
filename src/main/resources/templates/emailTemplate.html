@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 변경</title>
+    <style>body{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .emailContainer{
+        width: 500px;
+        height: 300px;
+        /* /* background-color: tomato; */
+    }
+    .emailContainer h1{
+        color: #5FBEBB;
+    }
+
+    p {
+        font-size: 18px;
+        margin-top: 0;
+        margin-bottom: 0;
+        word-break: keep-all;
+    }
+
+    hr {
+        margin-top: 12px;
+    }
+
+    #emailBtn{
+        padding: 12px 20px;
+        font-size: 18px;
+        background-color: turquoise;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 3px;
+        margin-top: 14px;
+    }
+
+    .warn {
+        color: gray;
+        margin-top: 6px;
+        font-size: 13px;
+    }
+
+    .titleBanner {
+        display: flex;
+        height: fit-content;
+        margin-bottom: 12px;
+    }
+
+    .titleBanner h1 {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: rgb(47, 202, 187);
+        vertical-align: text-bottom;
+    }
+
+    .titleBanner h2 {
+        margin-left: 10px;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: rgb(27, 146, 134);
+        vertical-align: text-bottom;
+    }
+
+    .subTitle {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .filler {
+        flex: 1;
+    }</style>
+
+</head>
+<body>
+<div class="emailContainer">
+    <div class="titleBanner">
+        <h1>이메일 주소 인증</h1>
+        <div class="subTitle">
+            <div class="filler"></div>
+            <h2>from Workshop6349</h2>
+        </div>
+    </div>
+
+    <p>안녕하세요, <b>Workshop6349 Security</b>입니다.</p>
+    <P>아래 버튼을 클릭하여 비밀번호 변경을 완료해주세요.</P>
+    <p class="warn">* 회원가입을 한 적이 없다면 절대 누르지 마시고, 워크샵6349 블로그에 문의하세요!</p>
+    <hr>
+    <a th:href="|http://localhost:8080/change-password/${id}|" id="emailBtn" >이메일 인증하기</a>
+</div>
+</body>
+</html>
